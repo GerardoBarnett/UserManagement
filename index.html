@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Application</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Management Application</h1>
+        </header>
+
+        <main>
+            <section class="user-form-section">
+                <h2 id="form-title">Add New User</h2>
+                <form id="user-form">
+                    <input type="hidden" id="user-id">
+                    
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" name="firstName" required>
+                        <span class="error-message" id="first-name-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" name="lastName" required>
+                        <span class="error-message" id="last-name-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                        <span class="error-message" id="phone-error"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select id="role" name="role" required>
+                            <option value="">Select a role</option>
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                            <option value="Guest">Guest</option>
+                        </select>
+                        <span class="error-message" id="role-error"></span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save User</button>
+                        <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="user-list-section">
+                <div class="user-list-header">
+                    <h2>User List</h2>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search users...">
+                        <button id="search-btn" class="btn btn-search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="user-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            <!-- User data will be inserted here dynamically -->
+                        </tbody>
+                    </table>
+                    <div id="no-users-message" class="hidden">No users found.</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification component -->
+        <div id="notification" class="notification hidden">
+            <span id="notification-message"></span>
+            <button id="notification-close" class="notification-close">&times;</button>
+        </div>
+
+        <!-- Confirmation dialog -->
+        <div id="confirmation-dialog" class="dialog hidden">
+            <div class="dialog-content">
+                <h3>Confirm Action</h3>
+                <p id="confirmation-message">Are you sure you want to delete this user?</p>
+                <div class="dialog-actions">
+                    <button id="confirm-yes" class="btn btn-danger">Yes</button>
+                    <button id="confirm-no" class="btn btn-secondary">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlay for dialogs -->
+        <div id="overlay" class="overlay hidden"></div>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script src="js/models/userModel.js"></script>
+    <script src="js/services/userService.js"></script>
+    <script src="js/views/userView.js"></script>
+    <script src="js/controllers/userController.js"></script>
+    <script>
+        // Initialize the application when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const userController = new UserController();
+            userController.init();
+        });
+    </script>
+</body>
+</html>
